@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products — Nestbridge Services</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* ===== PRODUCT IMAGE SLIDER ===== */
+        .product-slider {
+            position: relative;
+            width: 100%;
+            height: 260px;
+            overflow: hidden;
+            background: #e5e7eb; /* Fallback background while images load */
+        }
+        .product-slider .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .product-slider .slide.active {
+            opacity: 1;
+        }
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.9);
+            border: none;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 5;
+            font-size: 0.9rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .slider-arrow:hover {
+            background: var(--gold);
+            color: #fff;
+        }
+        .slider-prev { left: 10px; }
+        .slider-next { right: 10px; }
+        
+        .slider-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 5;
+        }
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.6);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid rgba(0,0,0,0.2);
+        }
+        .slider-dot.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            transform: scale(1.3);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <div class="container navbar">
+            <a href="index.html" class="logo">🌾 Nestbridge Services</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.7)), url('images/products/hero-bg.jpg') center/cover no-repeat; background-color: var(--deep-green);">
+        <div class="container">
+            <h1>Our Products</h1>
+            <p>Premium Ghanaian agricultural produce — from our farms to your table.</p>
+        </div>
+    </section>
+
+    <!-- Intro -->
+    <section style="padding: 4rem 0; text-align: center;">
+        <div class="container">
+            <h2 class="section-title">What We Offer<div class="title-line"><span></span><i>🌿</i><span></span></div></h2>
+            <p style="max-width: 700px; margin: 0 auto; color: var(--gray); font-size: 1.05rem;">
+                From poultry and livestock to traditional Ghanaian crops and export commodities — 
+                every product meets rigorous quality standards.
+            </p>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         CATEGORY: POULTRY & EGGS
+         ========================================== -->
+    <section style="padding: 3rem 0; background: var(--light-gray);">
+        <div class="container">
+            <h3 style="font-size: 1.5rem; color: var(--deep-green); margin-bottom: 2rem;">🐓 Poultry & Eggs</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+                
+                <!-- Fresh Eggs -->
+                <div style="background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light);">
+                    <div class="product-slider">
+                        <img src="images/products/eggs-1.jpg" class="slide active" alt="Fresh Eggs" onerror="this.src='https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=600'">
+                        <img src="images/products/eggs-2.jpg" class="slide" alt="Fresh Eggs" onerror="this.src='https://images.unsplash.com/photo-1509479100390-fd45c45f6403?w=600'">
+                        <img src="images/products/eggs-3.jpg" class="slide" alt="Fresh Eggs" onerror="this.src='https://images.unsplash.com/photo-1598965675045-45c5e72c7d05?w=600'">
+                        <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                        <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+                        <span style="position: absolute; top: 12px; left: 12px; background: var(--gold); color: #fff; padding: 0.3rem 0.9rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; z-index: 5;">BEST SELLER</span>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; color: var(--dark); margin-bottom: 0.5rem;">Fresh Eggs</h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.8rem;">Premium quality eggs from healthy layers. Available in crates for businesses and households.</p>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                            <span class="tag">Aflatoxin-Free</span><span class="tag">Farm Fresh</span><span class="tag">Bulk Available</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700; color: var(--gold); font-size: 1.2rem;">GHS 50 / crate</span>
+                            <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Order Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Chicken -->
+                <div style="background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light);">
+                    <div class="product-slider">
+                        <img src="images/products/chicken-1.jpg" class="slide active" alt="Live Chicken" onerror="this.src='https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=600'">
+                        <img src="images/products/chicken-2.jpg" class="slide" alt="Live Chicken" onerror="this.src='https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=600'">
+                        <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                        <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button></div>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; color: var(--dark); margin-bottom: 0.5rem;">Live Chicken</h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.8rem;">Healthy, vaccinated poultry — broilers and layers available for farms and businesses.</p>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                            <span class="tag">Free-Range</span><span class="tag">Vaccinated</span><span class="tag">Healthy</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700; color: var(--gold); font-size: 1.2rem;">GHS 80 each</span>
+                            <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Order Now</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         CATEGORY: TRADITIONAL GHANAIAN PRODUCTS
+         ========================================== -->
+    <section style="padding: 3rem 0;">
+        <div class="container">
+            <h3 style="font-size: 1.5rem; color: var(--deep-green); margin-bottom: 2rem;">🇬🇭 Traditional Ghanaian Products</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+                
+                <!-- Aidan Fruit -->
+                <div style="background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light);">
+                    <div class="product-slider">
+                        <img src="images/products/aidan-1.jpg" class="slide active" alt="Aidan Fruit" onerror="this.src='https://images.unsplash.com/photo-1601493700631-2e3ba308fab1?w=600'">
+                        <img src="images/products/aidan-2.jpg" class="slide" alt="Aidan Fruit" onerror="this.src='https://images.unsplash.com/photo-1590005024862-6b67679a29fb?w=600'">
+                        <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                        <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button></div>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; color: var(--dark); margin-bottom: 0.5rem;">Aidan Fruit (Prekese)</h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.8rem;">Traditional medicinal fruit known for its rich flavor and health benefits. Used in soups, teas, and herbal remedies.</p>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                            <span class="tag">Organic</span><span class="tag">Medicinal</span><span class="tag">Export Quality</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700; color: var(--gold); font-size: 1.2rem;">Contact for pricing</span>
+                            <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hibiscus Flower -->
+                <div style="background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light);">
+                    <div class="product-slider">
+                        <img src="images/products/hibiscus-1.jpg" class="slide active" alt="Hibiscus" onerror="this.src='https://images.unsplash.com/photo-1597484661643-2e5ffb54e232?w=600'">
+                        <img src="images/products/hibiscus-2.jpg" class="slide" alt="Hibiscus" onerror="this.src='https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600'">
+                        <img src="images/products/hibiscus-3.jpg" class="slide" alt="Hibiscus" onerror="this.src='https://images.unsplash.com/photo-1580820267682-426da1007f6f?w=600'">
+                        <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                        <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+                        <span style="position: absolute; top: 12px; left: 12px; background: #dc2626; color: #fff; padding: 0.3rem 0.9rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; z-index: 5;">POPULAR</span>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; color: var(--dark); margin-bottom: 0.5rem;">Hibiscus Flower (Sobolo)</h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.8rem;">Premium dried hibiscus flowers for Sobolo drink. Rich color, authentic taste. Available in bulk.</p>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                            <span class="tag">Premium Grade</span><span class="tag">Export Ready</span><span class="tag">Bulk Supply</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700; color: var(--gold); font-size: 1.2rem;">Contact for pricing</span>
+                            <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tiger Nuts -->
+                <div style="background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light);">
+                    <div class="product-slider">
+                        <img src="images/products/tigernuts-1.jpg" class="slide active" alt="Tiger Nuts" onerror="this.src='https://images.unsplash.com/photo-1571757115115-92533e6e5dd5?w=600'">
+                        <img src="images/products/tigernuts-2.jpg" class="slide" alt="Tiger Nuts" onerror="this.src='https://images.unsplash.com/photo-1590005197334-eb50707d71bb?w=600'">
+                        <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                        <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button></div>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; color: var(--dark); margin-bottom: 0.5rem;">Tiger Nuts</h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.8rem;">Nutritious tiger nuts for snacks, milk production, and health foods. High in fiber and natural sweetness.</p>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                            <span class="tag">Organic</span><span class="tag">High Fiber</span><span class="tag">Export Quality</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700; color: var(--gold); font-size: 1.2rem;">Contact for pricing</span>
+                            <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shea Butter -->
+                <div style="background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light);">
+                    <div class="product-slider">
+                        <img src="images/products/shea-1.jpg" class="slide active" alt="Shea Butter" onerror="this.src='https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=600'">
+                        <img src="images/products/shea-2.jpg" class="slide" alt="Shea Butter" onerror="this.src='https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=600'">
+                        <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                        <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button></div>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; color: var(--dark); margin-bottom: 0.5rem;">Shea Butter</h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.8rem;">Pure, unrefined shea butter from Northern Ghana. Perfect for cosmetics, skincare, and food.</p>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                            <span class="tag">Unrefined</span><span class="tag">Organic</span><span class="tag">Export Ready</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700; color: var(--gold); font-size: 1.2rem;">Contact for pricing</span>
+                            <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         CATEGORY: VEGETABLES & CROPS
+         ========================================== -->
+    <section style="padding: 3rem 0; background: var(--light-gray);">
+        <div class="container">
+            <h3 style="font-size: 1.5rem; color: var(--deep-green); margin-bottom: 2rem;">🥬 Vegetables & Crops</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+                
+                <!-- Fresh Vegetables -->
+                <div style="background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light);">
+                    <div class="product-slider">
+                        <img src="images/products/vegetables-1.jpg" class="slide active" alt="Vegetables" onerror="this.src='https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=600'">
+                        <img src="images/products/vegetables-2.jpg" class="slide" alt="Vegetables" onerror="this.src='https://images.unsplash.com/photo-1557844352-761f8aa9e4be?w=600'">
+                        <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                        <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button></div>
+                        <span style="position: absolute; top: 12px; left: 12px; background: var(--primary-green); color: #fff; padding: 0.3rem 0.9rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; z-index: 5;">ORGANIC</span>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; color: var(--dark); margin-bottom: 0.5rem;">Fresh Vegetables</h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.8rem;">Organic vegetables harvested daily — tomatoes, peppers, onions, lettuce, cabbage, and seasonal greens.</p>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                            <span class="tag">Organic</span><span class="tag">Non-GMO</span><span class="tag">Farm Fresh</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700; color: var(--gold); font-size: 1.2rem;">Contact for pricing</span>
+                            <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Order Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cassava -->
+                <div style="background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light);">
+                    <div class="product-slider">
+                        <img src="images/products/cassava-1.jpg" class="slide active" alt="Cassava" onerror="this.src='https://images.unsplash.com/photo-1590005024862-6b67679a29fb?w=600'">
+                        <img src="images/products/cassava-2.jpg" class="slide" alt="Cassava" onerror="this.src='https://images.unsplash.com/photo-1590004953392-5aba2e722bd2?w=600'">
+                        <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                        <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button></div>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; color: var(--dark); margin-bottom: 0.5rem;">Fresh Cassava</h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.8rem;">High-quality cassava tubers for gari, fufu flour, industrial starch, and animal feed.</p>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                            <span class="tag">Fresh Harvest</span><span class="tag">Bulk Supply</span><span class="tag">Multi-Purpose</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700; color: var(--gold); font-size: 1.2rem;">Contact for pricing</span>
+                            <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Maize -->
+                <div style="background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light);">
+                    <div class="product-slider">
+                        <img src="images/products/maize-1.jpg" class="slide active" alt="Maize" onerror="this.src='https://images.unsplash.com/photo-1592982537447-6e60f1f0cd9a?w=600'">
+                        <img src="images/products/maize-2.jpg" class="slide" alt="Maize" onerror="this.src='https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=600'">
+                        <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                        <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button></div>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; color: var(--dark); margin-bottom: 0.5rem;">Maize (Corn)</h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.8rem;">High-yield hybrid maize for food processing, animal feed, and industrial use.</p>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                            <span class="tag">Moisture Tested</span><span class="tag">Bulk Supply</span><span class="tag">Export Ready</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700; color: var(--gold); font-size: 1.2rem;">Contact for pricing</span>
+                            <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         CATEGORY: LIVESTOCK
+         ========================================== -->
+    <section style="padding: 3rem 0;">
+        <div class="container">
+            <h3 style="font-size: 1.5rem; color: var(--deep-green); margin-bottom: 2rem;">🐄 Livestock</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+                
+                <!-- Cattle -->
+                <div style="background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light);">
+                    <div class="product-slider">
+                        <img src="images/products/cattle-1.jpg" class="slide active" alt="Cattle" onerror="this.src='https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=600'">
+                        <img src="images/products/cattle-2.jpg" class="slide" alt="Cattle" onerror="this.src='https://images.unsplash.com/photo-1601557496192-c955e56c3b23?w=600'">
+                        <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                        <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button></div>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; color: var(--dark); margin-bottom: 0.5rem;">Cattle</h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.8rem;">Healthy cattle for beef and dairy. Grass-fed, vaccinated, professionally managed.</p>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                            <span class="tag">Grass-Fed</span><span class="tag">Vaccinated</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700; color: var(--gold); font-size: 1.2rem;">Contact for pricing</span>
+                            <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Goats -->
+                <div style="background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light);">
+                    <div class="product-slider">
+                        <img src="images/products/goats-1.jpg" class="slide active" alt="Goats" onerror="this.src='https://images.unsplash.com/photo-1596733430284-f7437764b1a9?w=600'">
+                        <img src="images/products/goats-2.jpg" class="slide" alt="Goats" onerror="this.src='https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=600'">
+                        <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                        <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button></div>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; color: var(--dark); margin-bottom: 0.5rem;">Goats</h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.8rem;">Well-bred goats for meat and breeding. Healthy stock under proper management.</p>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                            <span class="tag">Healthy Stock</span><span class="tag">Well-Bred</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700; color: var(--gold); font-size: 1.2rem;">Contact for pricing</span>
+                            <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Quality Assurance -->
+    <section style="padding: 4rem 0; background: var(--light-gray); text-align: center;">
+        <div class="container">
+            <h2 class="section-title">Quality You Can Trust<div class="title-line"><span></span><i>🌿</i><span></span></div></h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                <div><div style="font-size: 2.5rem;">✅</div><h4 style="color: var(--deep-green);">FDA Ghana Certified</h4><p style="color: var(--gray); font-size: 0.9rem;">All products meet food safety standards.</p></div>
+                <div><div style="font-size: 2.5rem;">🔬</div><h4 style="color: var(--deep-green);">Quality Tested</h4><p style="color: var(--gray); font-size: 0.9rem;">Moisture, purity, and aflatoxin testing.</p></div>
+                <div><div style="font-size: 2.5rem;">📦</div><h4 style="color: var(--deep-green);">Export-Ready</h4><p style="color: var(--gray); font-size: 0.9rem;">Packaging meets international standards.</p></div>
+                <div><div style="font-size: 2.5rem;">🌱</div><h4 style="color: var(--deep-green);">Sustainably Sourced</h4><p style="color: var(--gray); font-size: 0.9rem;">Eco-friendly farming practices.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Order?</h2>
+            <p>Contact us on WhatsApp for pricing, bulk orders, and delivery information.</p>
+            <a href="https://wa.me/233535097150" target="_blank" class="btn" style="background: #25D366;"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--deep-green); color: #cbd5e1; padding: 4rem 0 2rem; text-align: left;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem; margin-bottom: 3rem;">
+                <div>
+                    <h3 style="color: #fff; font-size: 1.3rem; margin-bottom: 1rem;">🌾 Nestbridge Services</h3>
+                    <p style="font-size: 0.9rem; line-height: 1.7; margin-bottom: 1rem;">Connecting Africa's finest agricultural produce to local and global markets with quality, reliability, and sustainability.</p>
+                    <span style="background: rgba(255,255,255,0.1); padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.7rem; font-weight: 600;">✅ FDA Ghana Certified</span>
+                </div>
+                <div>
+                    <h4 style="color: #fff; margin-bottom: 1rem; font-size: 1rem;">Quick Links</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+                        <li><a href="about.html" style="color: #94a3b8; text-decoration: none; font-size: 0.9rem;">About Us</a></li>
+                        <li><a href="products.html" style="color: #94a3b8; text-decoration: none; font-size: 0.9rem;">Our Products</a></li>
+                        <li><a href="services.html" style="color: #94a3b8; text-decoration: none; font-size: 0.9rem;">Quality Assurance</a></li>
+                        <li><a href="services.html" style="color: #94a3b8; text-decoration: none; font-size: 0.9rem;">Logistics & Shipping</a></li>
+                        <li><a href="about.html" style="color: #94a3b8; text-decoration: none; font-size: 0.9rem;">Farmer Empowerment</a></li>
+                        <li><a href="contact.html" style="color: #94a3b8; text-decoration: none; font-size: 0.9rem;">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #fff; margin-bottom: 1rem; font-size: 1rem;">Our Products</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+                        <li><span style="color: #94a3b8; font-size: 0.9rem;">🥚 Fresh Eggs</span></li>
+                        <li><span style="color: #94a3b8; font-size: 0.9rem;">🐓 Live Chicken</span></li>
+                        <li><span style="color: #94a3b8; font-size: 0.9rem;">🌺 Hibiscus Flower</span></li>
+                        <li><span style="color: #94a3b8; font-size: 0.9rem;">🥜 Tiger Nuts</span></li>
+                        <li><span style="color: #94a3b8; font-size: 0.9rem;">🍠 Cassava & Yam</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #fff; margin-bottom: 1rem; font-size: 1rem;">Contact Us</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+                        <li style="display: flex; align-items: center; gap: 0.6rem; color: #94a3b8; font-size: 0.9rem;"><i class="fas fa-map-marker-alt" style="color: var(--gold-light); width: 16px;"></i> Accra, Ghana</li>
+                        <li style="display: flex; align-items: center; gap: 0.6rem; color: #94a3b8; font-size: 0.9rem;"><i class="fas fa-phone" style="color: var(--gold-light); width: 16px;"></i> +233 53 509 7150</li>
+                        <li style="display: flex; align-items: center; gap: 0.6rem; color: #94a3b8; font-size: 0.9rem;"><i class="fas fa-envelope" style="color: var(--gold-light); width: 16px;"></i> danieltweneboah08@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; color: #64748b;">
+                <p>© 2026 Nestbridge Services. All rights reserved.</p>
+                <p>Empowering Agriculture, Connecting Markets.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/233535097150" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        function prevSlide(btn) {
+            const slider = btn.closest('.product-slider');
+            const slides = slider.querySelectorAll('.slide');
+            const dots = slider.querySelectorAll('.slider-dot');
+            let activeIndex = Array.from(slides).findIndex(s => s.classList.contains('active'));
+            slides[activeIndex].classList.remove('active');
+            dots[activeIndex].classList.remove('active');
+            activeIndex = (activeIndex - 1 + slides.length) % slides.length;
+            slides[activeIndex].classList.add('active');
+            dots[activeIndex].classList.add('active');
+        }
+        function nextSlide(btn) {
+            const slider = btn.closest('.product-slider');
+            const slides = slider.querySelectorAll('.slide');
+            const dots = slider.querySelectorAll('.slider-dot');
+            let activeIndex = Array.from(slides).findIndex(s => s.classList.contains('active'));
+            slides[activeIndex].classList.remove('active');
+            dots[activeIndex].classList.remove('active');
+            activeIndex = (activeIndex + 1) % slides.length;
+            slides[activeIndex].classList.add('active');
+            dots[activeIndex].classList.add('active');
+        }
+        document.querySelectorAll('.slider-dot').forEach(dot => {
+            dot.addEventListener('click', function() {
+                const slider = this.closest('.product-slider');
+                const slides = slider.querySelectorAll('.slide');
+                const dots = slider.querySelectorAll('.slider-dot');
+                const index = Array.from(dots).indexOf(this);
+                slides.forEach(s => s.classList.remove('active'));
+                dots.forEach(d => d.classList.remove('active'));
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

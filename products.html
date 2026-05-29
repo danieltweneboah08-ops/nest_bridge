@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products — Nestbridge Services</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .product-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+        }
+        .product-slider {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+        .product-slider .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .product-slider .slide.active { opacity: 1; }
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.9);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 5;
+            font-size: 0.8rem;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+        .slider-arrow:hover { background: #c59b27; color: #fff; }
+        .slider-prev { left: 8px; }
+        .slider-next { right: 8px; }
+        .slider-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 5;
+        }
+        .slider-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.6);
+            cursor: pointer;
+            border: none;
+        }
+        .slider-dot.active { background: #c59b27; transform: scale(1.3); }
+        .product-info { padding: 1.5rem; }
+        .product-info h4 { font-size: 1.2rem; color: #0f172a; margin-bottom: 0.5rem; }
+        .product-info p { color: #64748b; font-size: 0.9rem; margin-bottom: 0.8rem; }
+        .tag {
+            background: #e6f7e6; color: #1a5632; padding: 0.2rem 0.7rem;
+            border-radius: 50px; font-size: 0.7rem; font-weight: 600;
+            display: inline-block; margin: 0.15rem;
+        }
+        .price { font-weight: 700; color: #c59b27; font-size: 1.2rem; display: inline-block; margin: 0.8rem 0; }
+        .order-btn {
+            background: #25D366; color: #fff; padding: 0.5rem 1.2rem;
+            border-radius: 8px; text-decoration: none; font-weight: 600;
+            font-size: 0.85rem; display: inline-block;
+        }
+        .order-btn:hover { background: #1da851; }
+        .badge {
+            position: absolute; top: 12px; left: 12px; padding: 0.3rem 0.9rem;
+            border-radius: 50px; font-size: 0.75rem; font-weight: 600;
+            z-index: 5; color: #fff;
+        }
+        .img-wrapper { position: relative; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <a href="index.html" class="logo">🌾 Nestbridge Services</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        </div>
+    </header>
+
+    <section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.7)),url('https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=1200') center/cover no-repeat;">
+        <div class="container"><h1>Our Products</h1><p>Premium Ghanaian agricultural produce — from our farms to your table.</p></div>
+    </section>
+
+    <!-- POULTRY & EGGS -->
+    <section style="padding:3rem 0;background:#f1f5f9;"><div class="container">
+        <h3 style="font-size:1.5rem;color:#1a3c2a;margin-bottom:2rem;">🐓 Poultry & Eggs</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+            
+            <!-- Fresh Eggs (3 photos) -->
+            <div class="product-card"><div class="img-wrapper"><div class="product-slider">
+                <img src="images/products/eggs_1. jpg.png" class="slide active" alt="Eggs 1"><img src="images/products/eggs_2. jpg.png" class="slide" alt="Eggs 2"><img src="images/products/eggs_3. jpg.png" class="slide" alt="Eggs 3">
+                <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button><button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+            </div><span class="badge" style="background:#c59b27;">BEST SELLER</span></div>
+            <div class="product-info"><h4>Fresh Eggs</h4><p>Premium quality eggs from healthy layers. Available in crates.</p>
+                <span class="tag">Aflatoxin-Free</span><span class="tag">Farm Fresh</span><span class="tag">Bulk Available</span><br><span class="price">GHS 50 / crate</span><br>
+                <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Order on WhatsApp</a></div></div>
+
+            <!-- Live Chicken (3 photos) -->
+            <div class="product-card"><div class="img-wrapper"><div class="product-slider">
+                <img src="images/products/chicken_1. jpg.png" class="slide active" alt="Chicken 1"><img src="images/products/chicken_2. jpg.png" class="slide" alt="Chicken 2"><img src="images/products/chicken_3. jpg.png" class="slide" alt="Chicken 3">
+                <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button><button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+            </div></div>
+            <div class="product-info"><h4>Live Chicken</h4><p>Healthy, vaccinated poultry — broilers and layers.</p>
+                <span class="tag">Free-Range</span><span class="tag">Vaccinated</span><span class="tag">Healthy</span><br><span class="price">GHS 80 each</span><br>
+                <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Order on WhatsApp</a></div></div>
+        </div>
+    </div></section>
+
+    <!-- TRADITIONAL GHANAIAN PRODUCTS -->
+    <section style="padding:3rem 0;"><div class="container">
+        <h3 style="font-size:1.5rem;color:#1a3c2a;margin-bottom:2rem;">🇬🇭 Traditional Ghanaian Products</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+            
+            <!-- Prekese (3 photos) -->
+            <div class="product-card"><div class="img-wrapper"><div class="product-slider">
+                <img src="images/products/Aidan fruit-1. jpg.png" class="slide active" alt="Prekese 1"><img src="images/products/Aidan fruit -2. jpg.png" class="slide" alt="Prekese 2"><img src="images/products/Aidan fruit-3. jpg.png" class="slide" alt="Prekese 3">
+                <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button><button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+            </div></div><div class="product-info"><h4>Aidan Fruit (Prekese)</h4><p>Traditional medicinal fruit for soups, teas, and herbal remedies.</p>
+                <span class="tag">Organic</span><span class="tag">Medicinal</span><span class="tag">Export Quality</span><br><span class="price">Contact for pricing</span><br>
+                <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a></div></div>
+            
+            <!-- Hwentia (3 photos) -->
+            <div class="product-card"><div class="img-wrapper"><div class="product-slider">
+                <img src="images/products/Selim(Hwentia) 1. jpg.png" class="slide active" alt="Hwentia 1"><img src="images/products/Selim(Hwentia) 2. jpg.png" class="slide" alt="Hwentia 2"><img src="images/products/Selim(Hwentia) 3. jpg.png" class="slide" alt="Hwentia 3">
+                <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button><button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+            </div></div><div class="product-info"><h4>Selim (Hwentia)</h4><p>Aromatic peppery spice for traditional soups, stews, and medicinal blends.</p>
+                <span class="tag">Organic</span><span class="tag">Aromatic</span><span class="tag">Export Quality</span><br><span class="price">Contact for pricing</span><br>
+                <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a></div></div>
+            
+            <!-- Sobolo (3 photos) -->
+            <div class="product-card"><div class="img-wrapper"><div class="product-slider">
+                <img src="images/products/Hibiscus_1.jpg.png" class="slide active" alt="Sobolo 1"><img src="images/products/Hibiscus_2.jpg.png" class="slide" alt="Sobolo 2"><img src="images/products/Hibiscus_3.jpg.png" class="slide" alt="Sobolo 3">
+                <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button><button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+            </div><span class="badge" style="background:#dc2626;">POPULAR</span></div><div class="product-info"><h4>Hibiscus Flower (Sobolo)</h4><p>Premium dried hibiscus for authentic Sobolo drink.</p>
+                <span class="tag">Premium Grade</span><span class="tag">Export Ready</span><span class="tag">Bulk Supply</span><br><span class="price">Contact for pricing</span><br>
+                <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a></div></div>
+            
+            <!-- Tiger Nuts (3 photos) -->
+            <div class="product-card"><div class="img-wrapper"><div class="product-slider">
+                <img src="images/products/Tiger nuts-1. jpg.png" class="slide active" alt="Tiger Nuts 1"><img src="images/products/Tiger nuts-2. jpg.png" class="slide" alt="Tiger Nuts 2"><img src="images/products/Tiger nuts-3. jpg.png" class="slide" alt="Tiger Nuts 3">
+                <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button><button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+            </div></div><div class="product-info"><h4>Tiger Nuts</h4><p>Nutritious, high-fiber nuts for snacks, milk, and health foods.</p>
+                <span class="tag">Organic</span><span class="tag">High Fiber</span><span class="tag">Export Quality</span><br><span class="price">Contact for pricing</span><br>
+                <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a></div></div>
+            
+            <!-- Shea Butter (4 PHOTOS) -->
+            <div class="product-card"><div class="img-wrapper"><div class="product-slider">
+                <img src="images/products/Shea Butter-1. jpg.png" class="slide active" alt="Shea 1"><img src="images/products/Shea Butter-2. jpg.png" class="slide" alt="Shea 2"><img src="images/products/Shea Butter-3. jpg.png" class="slide" alt="Shea 3"><img src="images/products/Shea Butter-4. jpg.png" class="slide" alt="Shea 4">
+                <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button><button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+            </div></div><div class="product-info"><h4>Shea Butter</h4><p>Pure, unrefined shea butter from Northern Ghana.</p>
+                <span class="tag">Unrefined</span><span class="tag">Organic</span><span class="tag">Export Ready</span><br><span class="price">Contact for pricing</span><br>
+                <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a></div></div>
+            
+            <!-- Ginger (3 photos) -->
+            <div class="product-card"><div class="img-wrapper"><div class="product-slider">
+                <img src="images/products/Ginger-1. jpg.png" class="slide active" alt="Ginger 1"><img src="images/products/Ginger-2. jpg.png" class="slide" alt="Ginger 2"><img src="images/products/Ginger-3. jpg.png" class="slide" alt="Ginger 3">
+                <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button><button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+            </div></div><div class="product-info"><h4>Fresh Ginger</h4><p>Premium quality ginger rhizomes for spices, teas, and health products.</p>
+                <span class="tag">Fresh</span><span class="tag">Aromatic</span><span class="tag">Export Quality</span><br><span class="price">Contact for pricing</span><br>
+                <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a></div></div>
+        </div>
+    </div></section>
+
+    <!-- VEGETABLES & CROPS -->
+    <section style="padding:3rem 0;background:#f1f5f9;"><div class="container">
+        <h3 style="font-size:1.5rem;color:#1a3c2a;margin-bottom:2rem;">🥬 Vegetables & Crops</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+            
+            <!-- Vegetables (3 photos) -->
+            <div class="product-card"><div class="img-wrapper"><div class="product-slider">
+                <img src="images/products/vegetables. jpg.png" class="slide active" alt="Veg 1"><img src="images/products/Vegetables_2. jpg.png" class="slide" alt="Veg 2"><img src="images/products/Vegetables_3. jpg.png" class="slide" alt="Veg 3">
+                <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button><button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+            </div><span class="badge" style="background:#2d6a4f;">ORGANIC</span></div><div class="product-info"><h4>Fresh Vegetables</h4><p>Organic tomatoes, peppers, onions, lettuce, cabbage — daily harvest.</p>
+                <span class="tag">Organic</span><span class="tag">Non-GMO</span><span class="tag">Farm Fresh</span><br><span class="price">Contact for pricing</span><br>
+                <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Order Now</a></div></div>
+            
+            <!-- Cassava (3 photos) -->
+            <div class="product-card"><div class="img-wrapper"><div class="product-slider">
+                <img src="images/products/cassava-1. jpg.png" class="slide active" alt="Cassava 1"><img src="images/products/cassava-2. jpg.png" class="slide" alt="Cassava 2"><img src="images/products/cassava-3. jpg.png" class="slide" alt="Cassava 3">
+                <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button><button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+            </div></div><div class="product-info"><h4>Fresh Cassava</h4><p>High-quality tubers for gari, fufu flour, starch, and feed.</p>
+                <span class="tag">Fresh Harvest</span><span class="tag">Bulk Supply</span><span class="tag">Multi-Purpose</span><br><span class="price">Contact for pricing</span><br>
+                <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a></div></div>
+            
+            <!-- Cocoyam (3 photos) -->
+            <div class="product-card"><div class="img-wrapper"><div class="product-slider">
+                <img src="images/products/Cocoyam-1. jpg.png" class="slide active" alt="Cocoyam 1"><img src="images/products/Cocoyam-2. jpg.png" class="slide" alt="Cocoyam 2"><img src="images/products/Cocoyam-3. jpg.png" class="slide" alt="Cocoyam 3">
+                <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button><button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+            </div></div><div class="product-info"><h4>Cocoyam (Mankani)</h4><p>Nutritious cocoyam tubers for fufu, ampesi, soups, and stews.</p>
+                <span class="tag">Fresh Harvest</span><span class="tag">Nutritious</span><span class="tag">Bulk Supply</span><br><span class="price">Contact for pricing</span><br>
+                <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a></div></div>
+            
+            <!-- Yam (3 photos) -->
+            <div class="product-card"><div class="img-wrapper"><div class="product-slider">
+                <img src="images/products/Yam_1. jpg.png" class="slide active" alt="Yam 1"><img src="images/products/Yam_2.jpg.png" class="slide" alt="Yam 2"><img src="images/products/Yam_3. jpg.png" class="slide" alt="Yam 3">
+                <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button><button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+            </div></div><div class="product-info"><h4>Fresh Yam</h4><p>Premium quality yam tubers for local markets and export.</p>
+                <span class="tag">Export Quality</span><span class="tag">Bulk Available</span><span class="tag">Well-Sorted</span><br><span class="price">Contact for pricing</span><br>
+                <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a></div></div>
+            
+            <!-- Maize (3 photos) -->
+            <div class="product-card"><div class="img-wrapper"><div class="product-slider">s
+                <img src="images/products/Maize_1. jpg.png" class="slide active" alt="Maize 1"><img src="images/products/Maize_2. jpg.png" class="slide" alt="Maize 2"><img src="images/products/Maize_3. jpg.png" class="slide" alt="Maize 3">
+                <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button><button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+            </div></div><div class="product-info"><h4>Maize (Corn)</h4><p>High-yield hybrid maize for food and animal feed.</p>
+                <span class="tag">Moisture Tested</span><span class="tag">Bulk Supply</span><span class="tag">Export Ready</span><br><span class="price">Contact for pricing</span><br>
+                <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a></div></div>
+        </div>
+    </div></section>
+
+    <!-- FISH & SEAFOOD -->
+    <section style="padding:3rem 0;"><div class="container">
+        <h3 style="font-size:1.5rem;color:#1a3c2a;margin-bottom:2rem;">🐟 Fish & Seafood</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+            
+            <!-- Kobi (3 photos) -->
+            <div class="product-card"><div class="img-wrapper"><div class="product-slider">
+                <img src="images/products/Salted Tilapia(Kobi)-1. jpg.png" class="slide active" alt="Kobi 1"><img src="images/products/Salted Tilapia(Kobi)-2. jpg.png" class="slide" alt="Kobi 2"><img src="images/products/Salted Tilapia(Kobi)-3. jpg.png" class="slide" alt="Kobi 3">
+                <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button><button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+            </div></div><div class="product-info"><h4>Salted Tilapia (Kobi)</h4><p>Traditionally salted and sun-dried tilapia for stews and soups.</p>
+                <span class="tag">Traditional</span><span class="tag">Salted</span><span class="tag">Sun-Dried</span><br><span class="price">Contact for pricing</span><br>
+                <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a></div></div>
+            
+            <!-- Adwene (3 photos) -->
+            <div class="product-card"><div class="img-wrapper"><div class="product-slider">
+                <img src="images/products/Smoked catfish(Adwene)-1. jpg.png" class="slide active" alt="Adwene 1"><img src="images/products/Smoked catfish(Adwene)-2. jpg.png" class="slide" alt="Adwene 2"><img src="images/products/Smoked catfish(Adwene)-3. jpg.png" class="slide" alt="Adwene 3">
+                <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button><button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+            </div></div><div class="product-info"><h4>Smoked Catfish (Adwene)</h4><p>Premium smoked catfish for authentic Ghanaian soups and sauces.</p>
+                <span class="tag">Smoked</span><span class="tag">Traditional</span><span class="tag">Premium Quality</span><br><span class="price">Contact for pricing</span><br>
+                <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a></div></div>
+        </div>
+    </div></section>
+
+    <!-- LIVESTOCK -->
+    <section style="padding:3rem 0;background:#f1f5f9;"><div class="container">
+        <h3 style="font-size:1.5rem;color:#1a3c2a;margin-bottom:2rem;">🐄 Livestock</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+            
+            <!-- Cattle (3 photos) -->
+            <div class="product-card"><div class="img-wrapper"><div class="product-slider">
+                <img src="images/products/cattle_1. jpg.png" class="slide active" alt="Cattle 1"><img src="images/products/cattle_2. jpg.png" class="slide" alt="Cattle 2"><img src="images/products/Cattle_3. jpg.png" class="slide" alt="Cattle 3">
+                <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button><button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+            </div></div><div class="product-info"><h4>Cattle</h4><p>Healthy cattle for beef and dairy — grass-fed, vaccinated.</p>
+                <span class="tag">Grass-Fed</span><span class="tag">Vaccinated</span><br><span class="price">Contact for pricing</span><br>
+                <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a></div></div>
+            
+            <!-- Goats (3 photos) -->
+            <div class="product-card"><div class="img-wrapper"><div class="product-slider">
+                <img src="images/products/Goat_1. jpg.png" class="slide active" alt="Goats 1"><img src="images/products/Goat_2. jpg.png" class="slide" alt="Goats 2"><img src="images/products/Goat_3. jpg.png" class="slide" alt="Goats 3">
+                <button class="slider-arrow slider-prev" onclick="prevSlide(this)"><i class="fas fa-chevron-left"></i></button><button class="slider-arrow slider-next" onclick="nextSlide(this)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots"><button class="slider-dot active"></button><button class="slider-dot"></button><button class="slider-dot"></button></div>
+            </div></div><div class="product-info"><h4>Goats</h4><p>Well-bred goats for meat and breeding — healthy stock.</p>
+                <span class="tag">Healthy Stock</span><span class="tag">Well-Bred</span><br><span class="price">Contact for pricing</span><br>
+                <a href="https://wa.me/233535097150" target="_blank" class="order-btn">Inquire</a></div></div>
+        </div>
+    </div></section>
+
+    <section class="cta"><div class="container"><h2>Ready to Order?</h2><p>Contact us on WhatsApp for pricing, bulk orders, and delivery.</p><a href="https://wa.me/233535097150" target="_blank" class="btn" style="background:#25D366;"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a></div></section>
+
+    <footer style="background:#1a3c2a;color:#cbd5e1;padding:2rem 0;text-align:center;"><p>© 2026 Nestbridge Services. Empowering Agriculture, Connecting Markets.</p></footer>
+
+    <a href="https://wa.me/233535097150" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <script src="script.js"></script>
+    <script>
+        function prevSlide(btn){const s=btn.closest('.product-slider');const slides=s.querySelectorAll('.slide');const dots=s.querySelectorAll('.slider-dot');let i=Array.from(slides).findIndex(x=>x.classList.contains('active'));slides[i].classList.remove('active');dots[i].classList.remove('active');i=(i-1+slides.length)%slides.length;slides[i].classList.add('active');dots[i].classList.add('active');}
+        function nextSlide(btn){const s=btn.closest('.product-slider');const slides=s.querySelectorAll('.slide');const dots=s.querySelectorAll('.slider-dot');let i=Array.from(slides).findIndex(x=>x.classList.contains('active'));slides[i].classList.remove('active');dots[i].classList.remove('active');i=(i+1)%slides.length;slides[i].classList.add('active');dots[i].classList.add('active');}
+        document.querySelectorAll('.slider-dot').forEach(dot=>{dot.addEventListener('click',function(){const s=this.closest('.product-slider');const slides=s.querySelectorAll('.slide');const dots=s.querySelectorAll('.slider-dot');const i=Array.from(dots).indexOf(this);slides.forEach(x=>x.classList.remove('active'));dots.forEach(x=>x.classList.remove('active'));slides[i].classList.add('active');dots[i].classList.add('active');});});
+    </script>
+</body>
+</html>

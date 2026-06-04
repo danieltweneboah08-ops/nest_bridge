@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Farm Gallery — Nestbridge Services</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .gallery-wrapper { padding: 2rem 0 4rem; }
+        .masonry-grid { columns: 4; column-gap: 1.2rem; }
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 1.2rem;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            background: #e5e7eb;
+        }
+        .gallery-item:hover { transform: translateY(-4px); box-shadow: 0 15px 35px rgba(0,0,0,0.2); }
+        .gallery-img {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            object-fit: cover;
+        }
+        .gallery-fallback {
+            width: 100%;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #fff;
+            border-radius: 12px;
+        }
+        .gallery-item:hover .gallery-img { filter: brightness(0.8); transform: scale(1.03); }
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            color: #fff;
+            padding: 2.5rem 1.5rem 1.2rem;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.35s ease;
+            pointer-events: none;
+        }
+        .gallery-item:hover .gallery-overlay { opacity: 1; transform: translateY(0); }
+        .gallery-overlay h4 { font-size: 1.1rem; margin-bottom: 0.3rem; font-weight: 600; }
+        .gallery-overlay span { font-size: 0.8rem; opacity: 0.85; }
+        .category-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(255,255,255,0.95);
+            color: #1a3c2a;
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .filter-section { padding: 2.5rem 0 1rem; text-align: center; }
+        .filter-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.8rem; }
+        .filter-btn {
+            padding: 0.65rem 1.6rem;
+            border-radius: 50px;
+            border: 2px solid #e2e8f0;
+            background: #fff;
+            color: #334155;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.88rem;
+            font-family: inherit;
+        }
+        .filter-btn:hover { border-color: #c59b27; color: #c59b27; }
+        .filter-btn.active { background: #1a3c2a; color: #fff; border-color: #1a3c2a; }
+        
+        /* Info Cards Section */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .info-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .info-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.12); }
+        .info-card .icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+        .info-card h4 { color: #1a3c2a; margin-bottom: 0.5rem; }
+        .info-card p { color: #64748b; font-size: 0.9rem; }
+
+        /* Lightbox */
+        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; align-items: center; justify-content: center; flex-direction: column; }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 90%; max-height: 80vh; border-radius: 10px; box-shadow: 0 25px 60px rgba(0,0,0,0.6); animation: zoomIn 0.3s ease-out; }
+        @keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .lightbox-caption { color: #fff; margin-top: 1.2rem; text-align: center; font-size: 1.05rem; max-width: 500px; font-weight: 500; }
+        .lightbox-close { position: absolute; top: 25px; right: 35px; font-size: 2.8rem; color: #fff; cursor: pointer; z-index: 10; transition: all 0.3s ease; }
+        .lightbox-close:hover { color: #c59b27; transform: rotate(90deg); }
+        .lightbox-nav { position: absolute; top: 50%; font-size: 2rem; color: #fff; cursor: pointer; z-index: 10; transform: translateY(-50%); background: rgba(255,255,255,0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+        .lightbox-nav:hover { background: #c59b27; }
+        .lightbox-prev { left: 25px; }
+        .lightbox-next { right: 25px; }
+
+        @media (max-width: 992px) { .masonry-grid { columns: 3; } }
+        @media (max-width: 768px) { .masonry-grid { columns: 2; } .lightbox-nav { width: 40px; height: 40px; font-size: 1.5rem; } .lightbox-prev { left: 10px; } .lightbox-next { right: 10px; } }
+        @media (max-width: 480px) { .masonry-grid { columns: 1; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <a href="index.html" class="logo">🌾 Nestbridge Services</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="gallery.html" class="active">Gallery</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        </div>
+    </header>
+
+    <section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.65)),url('images/gallery/farm-1.jpg') center/cover no-repeat; background-color: #1a3c2a;">
+        <div class="container">
+            <h1>Our Farm Gallery</h1>
+            <p>Explore our fields, livestock, harvests, and distribution network across Ghana.</p>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section style="padding:2rem 0;background:#f1f5f9;">
+        <div class="container">
+            <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:2.5rem;text-align:center;">
+                <div><h3 style="color:#c59b27;font-size:2rem;">50+</h3><p style="color:#64748b;">Acres of Farmland</p></div>
+                <div><h3 style="color:#c59b27;font-size:2rem;">500+</h3><p style="color:#64748b;">Farmers Supported</p></div>
+                <div><h3 style="color:#c59b27;font-size:2rem;">15+</h3><p style="color:#64748b;">Product Varieties</p></div>
+                <div><h3 style="color:#c59b27;font-size:2rem;">10+</h3><p style="color:#64748b;">Communities Reached</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter -->
+    <section class="filter-section">
+        <div class="container">
+            <h3 style="text-align:center;margin-bottom:1.5rem;color:#1a3c2a;">📷 Browse Our Gallery</h3>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Photos</button>
+                <button class="filter-btn" data-filter="crops">🌽 Crops & Fields</button>
+                <button class="filter-btn" data-filter="livestock">🐄 Livestock</button>
+                <button class="filter-btn" data-filter="workers">👨‍🌾 Our Workers</button>
+                <button class="filter-btn" data-filter="harvest">🌾 Harvest</button>
+                <button class="filter-btn" data-filter="distribution">🚚 Distribution</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section class="gallery-wrapper">
+        <div class="container">
+            <div class="masonry-grid" id="masonryGrid">
+                
+                <!-- CROPS & FIELDS -->
+                <div class="gallery-item" data-category="crops">
+                    <img src="images/gallery/farm_1. jpg.png" class="gallery-img" alt="Farm field" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#4ade80;display:none;">🌾</div>
+                    <span class="category-badge">🌽 Crops</span>
+                    <div class="gallery-overlay"><h4>Our Farmlands</h4><span>Sprawling fields ready for cultivation</span></div>
+                </div>
+                <div class="gallery-item" data-category="crops">
+                    <img src="images/gallery/farm_2. jpg.png" class="gallery-img" alt="Crop rows" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#22c55e;display:none;">🌱</div>
+                    <span class="category-badge">🌽 Crops</span>
+                    <div class="gallery-overlay"><h4>Crop Rows</h4><span>Organized planting for maximum yield</span></div>
+                </div>
+                <div class="gallery-item" data-category="crops">
+                    <img src="images/gallery/farm_3. jpg.png" class="gallery-img" alt="Vegetable farm" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#16a34a;display:none;">🥬</div>
+                    <span class="category-badge">🌽 Crops</span>
+                    <div class="gallery-overlay"><h4>Vegetable Farm</h4><span>Fresh organic vegetables</span></div>
+                </div>
+                <div class="gallery-item" data-category="crops">
+                    <img src="images/gallery/farm_4. jpg.png" class="gallery-img" alt="Farm view" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#84cc16;display:none;">🌿</div>
+                    <span class="category-badge">🌽 Crops</span>
+                    <div class="gallery-overlay"><h4>Scenic Farm View</h4><span>Our beautiful agricultural landscape</span></div>
+                </div>
+                <div class="gallery-item" data-category="crops">
+                    <img src="images/gallery/farm_5. jpg.png" class="gallery-img" alt="Irrigation" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#06b6d4;display:none;">💧</div>
+                    <span class="category-badge">🌽 Crops</span>
+                    <div class="gallery-overlay"><h4>Irrigation Systems</h4><span>Modern water management</span></div>
+                </div>
+                <div class="gallery-item" data-category="crops">
+                    <img src="images/gallery/farm_6. jpg.png" class="gallery-img" alt="Crop closeup" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#65a30d;display:none;">🌻</div>
+                    <span class="category-badge">🌽 Crops</span>
+                    <div class="gallery-overlay"><h4>Healthy Crops</h4><span>Thriving under expert care</span></div>
+                </div>
+
+                <!-- LIVESTOCK -->
+                <div class="gallery-item" data-category="livestock">
+                    <img src="images/gallery/cattle_1. jpg.jpg" class="gallery-img" alt="Cattle" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#78350f;display:none;">🐄</div>
+                    <span class="category-badge">🐄 Livestock</span>
+                    <div class="gallery-overlay"><h4>Cattle Herd</h4><span>Healthy, grass-fed cattle</span></div>
+                </div>
+                <div class="gallery-item" data-category="livestock">
+                    <img src="images/gallery/cattle_2. jpg.jpg" class="gallery-img" alt="Cattle grazing" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#92400e;display:none;">🐂</div>
+                    <span class="category-badge">🐄 Livestock</span>
+                    <div class="gallery-overlay"><h4>Free-Range Grazing</h4><span>Natural pasture feeding</span></div>
+                </div>
+                <div class="gallery-item" data-category="livestock">
+                    <img src="images/gallery/cattle_3. jpg.jpg" class="gallery-img" alt="Dairy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#a16207;display:none;">🥛</div>
+                    <span class="category-badge">🐄 Livestock</span>
+                    <div class="gallery-overlay"><h4>Dairy Production</h4><span>Fresh milk daily</span></div>
+                </div>
+                <div class="gallery-item" data-category="livestock">
+                    <img src="images/gallery/poultry_1. jpg.jpg" class="gallery-img" alt="Poultry" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#ef4444;display:none;">🐓</div>
+                    <span class="category-badge">🐄 Livestock</span>
+                    <div class="gallery-overlay"><h4>Poultry Farm</h4><span>Quality egg & meat production</span></div>
+                </div>
+                <div class="gallery-item" data-category="livestock">
+                    <img src="images/gallery/poultry_2. jpg.jpg" class="gallery-img" alt="Chickens" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#dc2626;display:none;">🐔</div>
+                    <span class="category-badge">🐄 Livestock</span>
+                    <div class="gallery-overlay"><h4>Free-Range Chickens</h4><span>Healthy, happy birds</span></div>
+                </div>
+
+                <!-- WORKERS -->
+                <div class="gallery-item" data-category="workers">
+                    <img src="images/gallery/workers_1. jpg.png" class="gallery-img" alt="Farm workers" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#2563eb;display:none;">👨‍🌾</div>
+                    <span class="category-badge">👨‍🌾 Workers</span>
+                    <div class="gallery-overlay"><h4>Our Dedicated Team</h4><span>Hardworking farmers at work</span></div>
+                </div>
+                <div class="gallery-item" data-category="workers">
+                    <img src="images/gallery/workers_2. jpg.jpg" class="gallery-img" alt="Women farmers" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#7c3aed;display:none;">👩‍🌾</div>
+                    <span class="category-badge">👨‍🌾 Workers</span>
+                    <div class="gallery-overlay"><h4>Women in Agriculture</h4><span>Empowering local women</span></div>
+                </div>
+                <div class="gallery-item" data-category="workers">
+                    <img src="images/gallery/workers_3. jpg.jpg" class="gallery-img" alt="Training session" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#0891b2;display:none;">📚</div>
+                    <span class="category-badge">👨‍🌾 Workers</span>
+                    <div class="gallery-overlay"><h4>Training Programs</h4><span>Teaching best farming practices</span></div>
+                </div>
+
+                <!-- HARVEST -->
+                <div class="gallery-item" data-category="harvest">
+                    <img src="images/gallery/harvest_1. jpg.jpg" class="gallery-img" alt="Harvest" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#f59e0b;display:none;">🌾</div>
+                    <span class="category-badge">🌾 Harvest</span>
+                    <div class="gallery-overlay"><h4>Harvest Season</h4><span>Reaping the rewards of hard work</span></div>
+                </div>
+                <div class="gallery-item" data-category="harvest">
+                    <img src="images/gallery/harvest_2. jpg.jpg" class="gallery-img" alt="Fresh produce" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#d97706;display:none;">🍅</div>
+                    <span class="category-badge">🌾 Harvest</span>
+                    <div class="gallery-overlay"><h4>Fresh Produce</h4><span>Straight from farm to market</span></div>
+                </div>
+
+                <!-- DISTRIBUTION -->
+                <div class="gallery-item" data-category="distribution">
+                    <img src="images/gallery/Distribution_1. jpg.png" class="gallery-img" alt="Transport" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#64748b;display:none;">🚚</div>
+                    <span class="category-badge">🚚 Distribution</span>
+                    <div class="gallery-overlay"><h4>Delivery Fleet</h4><span>Reliable transport network</span></div>
+                </div>
+                <div class="gallery-item" data-category="distribution">
+                    <img src="images/gallery/Distribution_2. jpg.jpg" class="gallery-img" alt="Loading" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#475569;display:none;">📦</div>
+                    <span class="category-badge">🚚 Distribution</span>
+                    <div class="gallery-overlay"><h4>Dispatch Ready</h4><span>Products loaded for delivery</span></div>
+                </div>
+                <div class="gallery-item" data-category="distribution">
+                    <img src="images/gallery/packaging.jpg.png" class="gallery-img" alt="Packaging" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="background:#94a3b8;display:none;">📋</div>
+                    <span class="category-badge">🚚 Distribution</span>
+                    <div class="gallery-overlay"><h4>Quality Packaging</h4><span>Export-ready standards</span></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Info Cards -->
+    <section style="padding:3rem 0;background:#f1f5f9;">
+        <div class="container">
+            <h2 style="text-align:center;color:#1a3c2a;margin-bottom:2rem;">Why Our Gallery Matters</h2>
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="icon">🔍</div>
+                    <h4>Transparency</h4>
+                    <p>See exactly where your food comes from — our farms, our process, our people.</p>
+                </div>
+                <div class="info-card">
+                    <div class="icon">🤝</div>
+                    <h4>Trust</h4>
+                    <p>Building confidence with buyers through visual proof of our quality standards.</p>
+                </div>
+                <div class="info-card">
+                    <div class="icon">🌍</div>
+                    <h4>Sustainability</h4>
+                    <p>Showcasing our eco-friendly farming methods that protect the environment.</p>
+                </div>
+                <div class="info-card">
+                    <div class="icon">👨‍🌾</div>
+                    <h4>Community</h4>
+                    <p>Highlighting the hardworking farmers and families behind every product.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <span class="lightbox-nav lightbox-prev" id="lightboxPrev"><i class="fas fa-chevron-left"></i></span>
+        <span class="lightbox-nav lightbox-next" id="lightboxNext"><i class="fas fa-chevron-right"></i></span>
+        <img src="" alt="" id="lightboxImg">
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+
+    <section class="cta"><div class="container"><h2>Want to See More?</h2><p>Contact us for a personal tour of our farms and facilities.</p><a href="contact.html" class="btn">Schedule a Visit</a></div></section>
+
+    <footer style="background:#1a3c2a;color:#cbd5e1;padding:2rem 0;text-align:center;"><p>© 2026 Nestbridge Services. Empowering Agriculture, Connecting Markets.</p></footer>
+    <a href="https://wa.me/233535097150" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
+            navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
+        }
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const filter = this.getAttribute('data-filter');
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    item.style.display = (filter === 'all' || item.getAttribute('data-category') === filter) ? 'block' : 'none';
+                });
+            });
+        });
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        let currentIndex = 0;
+        let visibleItems = [];
+
+        document.getElementById('masonryGrid').addEventListener('click', function(e) {
+            const item = e.target.closest('.gallery-item');
+            if (!item) return;
+            visibleItems = Array.from(document.querySelectorAll('.gallery-item')).filter(i => i.style.display !== 'none');
+            currentIndex = visibleItems.indexOf(item);
+            updateLightbox();
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        function updateLightbox() {
+            const item = visibleItems[currentIndex];
+            const img = item.querySelector('.gallery-img');
+            if (img && img.style.display !== 'none') {
+                lightboxImg.src = img.src;
+            } else {
+                lightboxImg.src = '';
+            }
+            lightboxImg.style.display = 'block';
+            const overlay = item.querySelector('.gallery-overlay');
+            lightboxCaption.textContent = overlay ? overlay.querySelector('h4').textContent + ' — ' + overlay.querySelector('span').textContent : '';
+        }
+
+        document.getElementById('lightboxClose').addEventListener('click', () => { lightbox.classList.remove('active'); document.body.style.overflow = ''; });
+        lightbox.addEventListener('click', e => { if (e.target === lightbox) { lightbox.classList.remove('active'); document.body.style.overflow = ''; } });
+        document.getElementById('lightboxPrev').addEventListener('click', e => { e.stopPropagation(); currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length; updateLightbox(); });
+        document.getElementById('lightboxNext').addEventListener('click', e => { e.stopPropagation(); currentIndex = (currentIndex + 1) % visibleItems.length; updateLightbox(); });
+        document.addEventListener('keydown', e => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
+            if (e.key === 'ArrowLeft') { currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length; updateLightbox(); }
+            if (e.key === 'ArrowRight') { currentIndex = (currentIndex + 1) % visibleItems.length; updateLightbox(); }
+        });
+    </script>
+</body>
+</html>
